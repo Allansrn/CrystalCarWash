@@ -72,7 +72,19 @@
         </div>
     </section>
     <section>
-
+        <div class="histoire">
+            <div class="histoire-logo">
+                <img src="public/images/logo.png" alt="Logo CrystalCar" class="logo">
+            </div>
+            <div class="histoire-content">
+                <h2>L’histoire de CrystalCar</h2>
+                <p>
+                    CrystalCar est née d’une passion : redonner aux voitures leur éclat d’origine avec un service de lavage automobile haut de gamme et écologique. 
+                    Dès le début, nous avons misé sur des produits respectueux de l’environnement et des techniques professionnelles pour garantir un nettoyage impeccable.
+                    Grâce à notre expertise, nous avons su gagner la confiance de nombreux automobilistes et nous imposer comme une référence. 
+                    Aujourd’hui, nous continuons d’innover pour offrir des services toujours plus performants. Avec CrystalCar, offrez à votre voiture l’éclat qu’elle mérite ! 🚗✨</p>
+            </div>
+        </div>
     </section>
     <div class="retour-haut">
         <a href="#titre">

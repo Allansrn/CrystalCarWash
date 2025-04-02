@@ -270,8 +270,35 @@ img {
 
 /*HISTOIRE*/
 
+.histoire{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    padding: 50px;
+}
 
+.histoire-logo{
+    height: 300px;
+    width: 300px;
+}
 
+.histoire h1{
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+    font-family: 'Montserrat', sans-serif;
+    
+    font-size: 4em;
+    /* margin: 150px 50px 0px 50px; */
+    /* text-shadow: var(--text-color) 3px 3px 3px; */
+    /*border: var(--text-color) solid 2px;*/
+
+}
+
+.histoire-content{
+    width: 60%;
+    font-size: 1.1em;
+}
 
 /*RETOUR HAUT*/
 
