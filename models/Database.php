@@ -3,23 +3,6 @@
 
 require_once 'config/config.php';
 
-// class Database {
-//     private $pdo;
-
-//     public function __construct() {
-//         global $pdo;
-//         $this->pdo = $pdo;
-//     }
-
-//     public function query($sql, $params = []) {
-//         $stmt = $this->pdo->prepare($sql);
-//         $stmt->execute($params);
-//         return $stmt;
-//     }
-// }
-
-// models/database.php
-
 class Database {
     private $pdo;
 

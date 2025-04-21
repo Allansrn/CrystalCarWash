@@ -1,5 +1,15 @@
-<?php require_once 'models/ProduitModel.php'?>
-<?php require_once 'models/ServiceModel.php'?>
+<?php 
+require_once 'models/ProduitModel.php';
+require_once 'models/ServiceModel.php';
+
+// Instancier les modèles
+$produitModel = new ProduitModel();
+$serviceModel = new ServiceModel();
+
+// Récupérer les données
+$produits = $produitModel->getAllProduits();
+$services = $serviceModel->getAllServices();
+?>
 <body>
     <main>
         <div class = "form-container">
@@ -31,15 +41,13 @@
                     <label for="prestation">Prestation :</label>
                     <select id="prestation" name="prestation">
                         <option value="">Choisir</option>
-                        <option value="lavage_exterieur">Lavage Extérieur</option>
-                        <option value="lavage_interieur">Lavage Intérieur</option>
-                        <option value="lavage_complet">Lavage Complet</option>
-                        <option value="traitement_ceramique">Traitement céramique</option>
-                        <option value="lustrage_integral">Lustrage intégral</option>
-
+                        <?php foreach ($services as $service) : ?>
+                            <option value="<?php echo htmlspecialchars($service['nom']); ?>">
+                                <?php echo htmlspecialchars($service['nom']); ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select><br><br>
                 </div>
-                <pre><?php print_r($produits); ?></pre>
 
                 <div id="produitOptions" style="display:none;">
                     <label for="produit">Produit :</label>

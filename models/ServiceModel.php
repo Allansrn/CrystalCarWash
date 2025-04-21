@@ -1,17 +1,18 @@
 <?php
 
-// ServiceModel.php
+require_once 'Database.php';
 
 class ServiceModel {
     private $db;
 
-    public function __construct($db) {
-        $this->db = $db;
+    public function __construct() {
+        $database = new Database();
+        $this->db = $database->getConnection();
     }
 
-    // Retirer le mot-clé static pour utiliser $this->db
-    public function getServices() {
-        $stmt = $this->db->prepare("SELECT * FROM services");
+    public function getAllServices() {
+        $query = "SELECT * FROM services";
+        $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
