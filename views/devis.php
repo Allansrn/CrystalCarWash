@@ -39,20 +39,20 @@
 
                     </select><br><br>
                 </div>
+                <pre><?php print_r($produits); ?></pre>
 
                 <div id="produitOptions" style="display:none;">
                     <label for="produit">Produit :</label>
                     <select id="produit" name="produit">
                         <option value="">Choisir</option>
-                        <option value="Coffret_lavage_normal">Coffret lavage normal</option>
-                        <option value="Coffret_lavage_prenium">Coffret lavage prenium</option>
-                        <option value="Coffret_lavage_exclusif">Coffret lavage exclusif</option>
-                        <option value="Bouteille_de_savon_ultra_moussant">Bouteille de savon ultra moussant</option>
-                        <option value="Pulvérisateur_lustrant_déperlant">Pulvérisateur lustrant déperlant</option>
-                        <option value="Cire_lustrante">Cire lustrante</option>
-                    </select><br><br>
-
+                        <?php foreach ($produits as $produit) : ?>
+                            <option value="<?php echo htmlspecialchars($produit['nom']); ?>">
+                                <?php echo htmlspecialchars($produit['nom']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
+
 
                 <label for="quantite">Quantité :</label>
                 <input type="number" id="quantite" name="quantite" min="1"><br><br>
