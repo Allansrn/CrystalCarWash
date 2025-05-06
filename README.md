@@ -46,4 +46,4 @@ Le projet suit le **modèle MVC** :
 
 1. Clone le dépôt :
    ```bash
-   git clone https://github.com/ton-pseudo/CrystalCarWash.git
+   git clone https://github.com/Allansrn/CrystalCarWash.git
