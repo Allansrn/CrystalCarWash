@@ -1,7 +1,7 @@
 <?php
 // models/Database.php
 
-require_once 'config/config.php';
+require_once __DIR__ . '/../config/config.php'; 
 
 class Database {
     private $pdo;

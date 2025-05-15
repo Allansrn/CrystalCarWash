@@ -1,3 +1,14 @@
+fetch('../CrystalCarWash/api/getDevisData.php')
+  .then(response => {
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+    return response.json();
+  })
+  .then(data => {
+    console.log("Données :", data);
+  })
+  .catch(error => console.error("Erreur :", error));
+
+
 document.getElementById('type').addEventListener('change', function() {
     const type = this.value;
     const prestationOptions = document.getElementById('prestationOptions');
@@ -44,40 +55,40 @@ document.getElementById('devisForm').addEventListener('submit', function(event) 
 });
 
 
-function getPrixHT(item) {
-    const prix = {
-        lavage_exterieur: 69,
-        lavage_interieur: 59,
-        lavage_complet: 109,
-        traitement_ceramique : 39,
-        lustrage_integral : 49,
-        Coffret_lavage_normal : 12,
-        Coffret_lavage_prenium : 21,
-        Coffret_lavage_exclusif :35,
-        Bouteille_de_savon_ultra_moussant : 6 ,
-        Pulvérisateur_lustrant_déperlant : 4,
-        Cire_lustrante : 16
-    };
+// function getPrixHT(item) {
+//     const prix = {
+//         lavage_exterieur: 69,
+//         lavage_interieur: 59,
+//         lavage_complet: 109,
+//         traitement_ceramique : 39,
+//         lustrage_integral : 49,
+//         Coffret_lavage_normal : 12,
+//         Coffret_lavage_prenium : 21,
+//         Coffret_lavage_exclusif :35,
+//         Bouteille_de_savon_ultra_moussant : 6 ,
+//         Pulvérisateur_lustrant_déperlant : 4,
+//         Cire_lustrante : 16
+//     };
     
-    return prix[item];
-}
+//     return prix[item];
+// }
 
-function getDescription(item) {
-    const descriptions = {
-        lavage_exterieur: 'Lavage extérieur de la voiture',
-        lavage_interieur: 'Lavage intérieur de la voiture',
-        lavage_complet: 'Lavage complet de la voiture',
-        traitement_ceramique : 'Traitement céramique',
-        lustrage_integral : 'Lustrage intégral',
-        Coffret_lavage_normal: 'Un coffret contenant des produits pour un lavage normal de la voiture.',
-        Coffret_lavage_prenium : 'Un coffret premium avec des produits de haute qualité pour le lavage de la voiture.',
-        Coffret_lavage_exclusif : 'Un coffret exclusif avec des produits de luxe pour le lavage de la voiture.',
-        Bouteille_de_savon_ultra_moussant : 'Savon spécialement conçu pour produire une mousse abondante.',
-        Pulvérisateur_lustrant_déperlant : 'Pulvérisateur pour donner une finition lustrée et déperlante.',
-        Cire_lustrante : 'Cire pour donner un éclat supplémentaire à la carrosserie.'
-    };    
-    return descriptions[item] || 'Description non disponible';
-}
+// function getDescription(item) {
+//     const descriptions = {
+//         lavage_exterieur: 'Lavage extérieur de la voiture',
+//         lavage_interieur: 'Lavage intérieur de la voiture',
+//         lavage_complet: 'Lavage complet de la voiture',
+//         traitement_ceramique : 'Traitement céramique',
+//         lustrage_integral : 'Lustrage intégral',
+//         Coffret_lavage_normal: 'Un coffret contenant des produits pour un lavage normal de la voiture.',
+//         Coffret_lavage_prenium : 'Un coffret premium avec des produits de haute qualité pour le lavage de la voiture.',
+//         Coffret_lavage_exclusif : 'Un coffret exclusif avec des produits de luxe pour le lavage de la voiture.',
+//         Bouteille_de_savon_ultra_moussant : 'Savon spécialement conçu pour produire une mousse abondante.',
+//         Pulvérisateur_lustrant_déperlant : 'Pulvérisateur pour donner une finition lustrée et déperlante.',
+//         Cire_lustrante : 'Cire pour donner un éclat supplémentaire à la carrosserie.'
+//     };    
+//     return descriptions[item] || 'Description non disponible';
+// }
 
 
 function generateDevis(nom, prenom, adresse, telephone, email, item, quantite) {
