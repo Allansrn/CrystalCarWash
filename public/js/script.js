@@ -1,3 +1,5 @@
+let devisData = [];
+
 fetch('../CrystalCarWash/api/getDevisData.php')
   .then(response => {
     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
@@ -5,6 +7,7 @@ fetch('../CrystalCarWash/api/getDevisData.php')
   })
   .then(data => {
     console.log("Données :", data);
+    devisData = data; // On stocke les données globalement
   })
   .catch(error => console.error("Erreur :", error));
 
@@ -55,101 +58,53 @@ document.getElementById('devisForm').addEventListener('submit', function(event) 
 });
 
 
-// function getPrixHT(item) {
-//     const prix = {
-//         lavage_exterieur: 69,
-//         lavage_interieur: 59,
-//         lavage_complet: 109,
-//         traitement_ceramique : 39,
-//         lustrage_integral : 49,
-//         Coffret_lavage_normal : 12,
-//         Coffret_lavage_prenium : 21,
-//         Coffret_lavage_exclusif :35,
-//         Bouteille_de_savon_ultra_moussant : 6 ,
-//         Pulvérisateur_lustrant_déperlant : 4,
-//         Cire_lustrante : 16
-//     };
-    
-//     return prix[item];
-// }
-
-// function getDescription(item) {
-//     const descriptions = {
-//         lavage_exterieur: 'Lavage extérieur de la voiture',
-//         lavage_interieur: 'Lavage intérieur de la voiture',
-//         lavage_complet: 'Lavage complet de la voiture',
-//         traitement_ceramique : 'Traitement céramique',
-//         lustrage_integral : 'Lustrage intégral',
-//         Coffret_lavage_normal: 'Un coffret contenant des produits pour un lavage normal de la voiture.',
-//         Coffret_lavage_prenium : 'Un coffret premium avec des produits de haute qualité pour le lavage de la voiture.',
-//         Coffret_lavage_exclusif : 'Un coffret exclusif avec des produits de luxe pour le lavage de la voiture.',
-//         Bouteille_de_savon_ultra_moussant : 'Savon spécialement conçu pour produire une mousse abondante.',
-//         Pulvérisateur_lustrant_déperlant : 'Pulvérisateur pour donner une finition lustrée et déperlante.',
-//         Cire_lustrante : 'Cire pour donner un éclat supplémentaire à la carrosserie.'
-//     };    
-//     return descriptions[item] || 'Description non disponible';
-// }
 
 
-function generateDevis(nom, prenom, adresse, telephone, email, item, quantite) {
+function generateDevis(nom, prenom, adresse, telephone, email, itemNom, quantite) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    const tauxTVA = 0.2; // Taux de TVA de 20%
-    const prixHT = getPrixHT(item);
+    const tauxTVA = 0.2;
+
+    // Rechercher l'objet correspondant dans devisData
+    const item = devisData.find(obj => obj.nom === itemNom);
+    if (!item) {
+        alert("Erreur : élément non trouvé dans les données.");
+        return;
+    }
+
+    const prixHT = parseFloat(item.prix);
+    const description = item.description;
     const totalHT = prixHT * quantite;
     const totalTVA = totalHT * tauxTVA;
     const totalTTC = totalHT + totalTVA;
 
-    // doc.text(`Devis Proforma`, 10, 10);
-    // doc.text(`Nom : ${nom}`, 10, 20);
-    // doc.text(`Prénom : ${prenom}`, 10, 30);
-    // doc.text(`Adresse : ${adresse}`, 10, 40);
-    // doc.text(`Téléphone : ${telephone}`, 10, 50);
-    // doc.text(`Email : ${email}`, 10, 60);
-    // doc.text(`Nom du produit ou de la prestation : ${item}`, 10, 70);
-    // doc.text(`Quantité : ${quantite}`, 10, 80);
-    // doc.text(`Description : ${getDescription(item)}`, 10, 90);
-    // doc.text(`Total HT : ${totalHT.toFixed(2)} €`, 10, 100);
-    // doc.text(`TVA (20%) : ${totalTVA.toFixed(2)} €`, 10, 110);
-    // doc.text(`Total TTC : ${totalTTC.toFixed(2)} €`, 10, 120);
-
-    // Définir les styles de base
+    // PDF layout
     doc.setFontSize(18);
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(0, 0, 255); // Couleur bleue pour les titres
-
-    // Ajouter le titre
+    doc.setTextColor(0, 0, 255);
     doc.text("Devis CrystalCarWash", 10, 10);
 
-    // Définir les styles pour les informations
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
-    doc.setTextColor(0, 0, 0); // Couleur noire pour le texte
+    doc.setTextColor(0, 0, 0);
 
-    // Ajouter les informations du client
     doc.text(`Nom : ${nom}`, 10, 20);
     doc.text(`Prénom : ${prenom}`, 10, 30);
     doc.text(`Adresse : ${adresse}`, 10, 40);
     doc.text(`Téléphone : ${telephone}`, 10, 50);
     doc.text(`Email : ${email}`, 10, 60);
 
-    // Ajouter une ligne de séparation
     doc.line(10, 70, 200, 70);
 
-    // Ajouter les informations du produit ou de la prestation
-    doc.text(`Nom du produit ou de la prestation : ${item}`, 10, 80);
+    doc.text(`Nom du produit ou de la prestation : ${itemNom}`, 10, 80);
     doc.text(`Quantité : ${quantite}`, 10, 90);
-    doc.text(`Description : ${getDescription(item)}`, 10, 100);
+    doc.text(`Description : ${description}`, 10, 100);
 
-    // Ajouter une ligne de séparation
     doc.line(10, 110, 200, 110);
 
-    // Ajouter les informations de prix
     doc.text(`Total HT : ${totalHT.toFixed(2)} €`, 10, 120);
     doc.text(`TVA (20%) : ${totalTVA.toFixed(2)} €`, 10, 130);
-    doc.text(`Total TTC : ${totalTTC.toFixed(2)} €`, 10, 140);    
+    doc.text(`Total TTC : ${totalTTC.toFixed(2)} €`, 10, 140);
 
     doc.save('devis.pdf');
 }
-
-
